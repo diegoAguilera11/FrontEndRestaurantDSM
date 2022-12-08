@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, Text, FlatList } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
-import globalStyles from '../src/components/styles/globalStyles'
-import Producto from '../src/components/Producto'
+import globalStyles from '../../src/components/styles/globalStyles'
+import Producto from '../../src/components/Producto'
 import { Separator } from 'native-base'
 
 const Menu = ({ productos, productoEditar, productoEliminar, setProducto, categorias }) => {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, FlatList, Pressable, Alert } from 'react-native'
-import AppContext from '../src/components/ContextApp'
-import ProductoOrden from '../src/components/ProductoOrden'
-import { formatearCantidad } from '../src/helpers'
-import { mostrarAlerta } from '../src/handler/Alerta'
-import globalStyles from '../src/components/styles/globalStyles'
+import AppContext from '../../src/components/ContextApp'
+import ProductoOrden from '../../src/components/ProductoOrden'
+import { formatearCantidad } from '../../src/helpers'
+import { mostrarAlerta } from '../../src/handler/Alerta'
+import globalStyles from '../../src/components/styles/globalStyles'
 
 const DetalleOrden = ({ navigation }) => {
     const { productosOrden, setProductosOrden, productos, table, ordenEnviada, setOrdenEnviada } = useContext(AppContext);

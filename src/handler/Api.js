@@ -1,4 +1,8 @@
 
+// APP HOST
+export const app_host = 'http://192.168.0.7:8000';
+
+
 export const obtenerCategoriasApi = async () => {
 
     const url = 'http://192.168.0.7:8000/api/categorys';
@@ -65,3 +69,4 @@ export const agregarCate = (object) => {
         console.log(e);
     }
 }
+

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import { app_host } from '../handler/Api';
 
 const AppContext = createContext()
 
@@ -23,11 +24,10 @@ export function RestaurantProvider({ children }) {
 
             try {
                 if (Platform.OS === "android") {
-                    // Local host del equipo.. ANDROID
-                    // const url = 'http://192.168.0.2:3000/category';
 
                     // host del BackEnd
-                    const url = 'http://192.168.0.7:8000/api/categories';
+
+                    const url = `${app_host}/api/categories`;
                     const resultado = await fetch(url);
                     const categoriasResultado = await resultado.json();
                     setCategorias(categoriasResultado)
@@ -56,11 +56,8 @@ export function RestaurantProvider({ children }) {
         const obtenerProductosAPI = async () => {
             try {
                 if (Platform.OS === "android") {
-                    // Local host del equipo.. ANDROID
-                    // const url = 'http://192.168.0.2:3000/product';
 
-                    // host del BackEnd
-                    const url = 'http://192.168.0.7:8000/api/products';
+                    const url = `${app_host}/api/products`;
                     const resultado = await fetch(url);
                     const productos = await resultado.json();
                     setProductos(productos)
@@ -68,7 +65,7 @@ export function RestaurantProvider({ children }) {
 
                 } else {
                     // Local host de la api.. IOS
-                    const url = 'http://localhost:3000/product';
+                    const url = 'http://localhost:8000/product';
                     const resultado = await fetch(url);
                     const productos = await resultado.json();
                     setProductos(productos)
@@ -96,7 +93,8 @@ export function RestaurantProvider({ children }) {
                     // const url = 'http://192.168.0.2:3000/table';
 
                     // host del BackEnd
-                    const url = 'http://192.168.0.7:8000/api/tables';
+
+                    const url = `${app_host}/api/tables`;
                     await fetch(url)
                         .then(respuesta => respuesta.json())
                         .then(resultado => {

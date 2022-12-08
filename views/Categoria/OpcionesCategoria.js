@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Text, StyleSheet, View, Pressable, Alert } from 'react-native'
-import globalStyles from '../src/components/styles/globalStyles'
+import globalStyles from '../../src/components/styles/globalStyles'
 import { Picker } from '@react-native-picker/picker'
-import AppContext from '../src/components/ContextApp'
+import AppContext from '../../src/components/ContextApp'
 
 const OpcionesCategoria = ({ navigation }) => {
 

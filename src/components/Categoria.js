@@ -3,7 +3,7 @@ import { View, StyleSheet, Pressable, TextInput, Text, Alert } from 'react-nativ
 import globalStyles from './styles/globalStyles';
 import AppContext from './ContextApp';
 import { mostrarAlerta } from '../handler/Alerta';
-import { agregarCate } from '../handler/Api';
+import { app_host } from '../handler/Api';
 
 const Categoria = ({ navigation }) => {
 
@@ -17,7 +17,7 @@ const Categoria = ({ navigation }) => {
 
     // Almacenar categoria en la BD
     const guardarCategoria = async () => {
-        const url = 'http://192.168.0.7:8000/api/categories';
+        const url = `${app_host}/api/categories`;
         const categoria = {
             name
         }

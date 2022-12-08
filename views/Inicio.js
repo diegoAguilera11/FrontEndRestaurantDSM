@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Text, StyleSheet, View, Button, Modal, SafeAreaView } from 'react-native'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import IngresarProducto from './IngresarProducto';
+import IngresarProducto from './Producto/IngresarProducto';
 import SeleccionMesa from './SeleccionMesa';
 import AppContext from '../src/components/ContextApp';
 

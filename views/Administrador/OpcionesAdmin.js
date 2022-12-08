@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, Text, Pressable, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
-import globalStyles from '../src/components/styles/globalStyles'
-import Menu from './Menu'
-import AppContext from '../src/components/ContextApp'
-import { mostrarAlerta } from '../src/handler/Alerta'
+import globalStyles from '../../src/components/styles/globalStyles'
+import Menu from '../Orden/Menu'
+import AppContext from '../../src/components/ContextApp'
+import { mostrarAlerta } from '../../src/handler/Alerta'
 
 
 const OpcionesAdmin = ({ navigation }) => {

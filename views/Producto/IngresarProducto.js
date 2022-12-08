@@ -10,12 +10,12 @@ import {
     Image
 } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
-import globalStyles from '../src/components/styles/globalStyles';
-import { generarCodigo } from '../src/helpers';
-import AppContext from '../src/components/ContextApp';
-import { mostrarAlerta } from '../src/handler/Alerta';
+import globalStyles from '../../src/components/styles/globalStyles';
+import { generarCodigo } from '../../src/helpers';
+import AppContext from '../../src/components/ContextApp';
+import { mostrarAlerta } from '../../src/handler/Alerta';
 import { launchImageLibrary } from 'react-native-image-picker'
-import { convertImage } from '../src/helpers';
+import { convertImage } from '../../src/helpers';
 import axios from 'axios';
 import { parse } from '@babel/core';
 

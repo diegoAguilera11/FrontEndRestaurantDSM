@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text } from 'react-native'
-import AppContext from '../src/components/ContextApp'
+import AppContext from '../../src/components/ContextApp'
 
 const EstadoOrden = ({ navigation }) => {
 

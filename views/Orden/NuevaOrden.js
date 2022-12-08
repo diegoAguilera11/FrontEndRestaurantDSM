@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Text, StyleSheet, View, FlatList, Pressable } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Button, FAB } from 'react-native-paper'
-import AppContext from '../src/components/ContextApp';
-import ProductoMenu from '../src/components/ProductoMenu';
+import AppContext from '../../src/components/ContextApp';
+import ProductoMenu from '../../src/components/ProductoMenu';
 
 const NuevaOrden = ({ navigation }) => {
     const { table, categorias, setCategorias, productos, setProductos, productoSeleccionado, setproductoSeleccionado } = useContext(AppContext)

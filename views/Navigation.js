@@ -3,26 +3,22 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Inicio from './Inicio';
-import IngresarProducto from './IngresarProducto';
-import NuevaOrden from './NuevaOrden';
-import OpcionesAdmin from './OpcionesAdmin';
+import IngresarProducto from './Producto/IngresarProducto';
+import NuevaOrden from './Orden/NuevaOrden';
+import OpcionesAdmin from './Administrador/OpcionesAdmin';
 import Categoria from '../src/components/Categoria';
 import SeleccionMesa from './SeleccionMesa';
-import OpcionesCategoria from './OpcionesCategoria';
+import OpcionesCategoria from './Categoria/OpcionesCategoria';
 import EditarCategoria from './Categoria/EditarCategoria';
 import EliminarCategoria from './Categoria/EliminarCategoria';
 import DetalleProducto from '../src/components/DetalleProducto';
-import DetalleOrden from './DetalleOrden';
-import EstadoOrden from './EstadoOrden';
+import DetalleOrden from './Orden/DetalleOrden';
+import EstadoOrden from './Orden/EstadoOrden';
 
 
 const Stack = createStackNavigator();
-const TabAdmin = createBottomTabNavigator();
-const TabCLiente = createBottomTabNavigator();
-
 
 const Navigation = () => {
     return (
