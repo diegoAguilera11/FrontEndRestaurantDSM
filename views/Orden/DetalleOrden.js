@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, StyleSheet, FlatList, Pressable, Alert } from 'react-native'
 import AppContext from '../../src/components/ContextApp'
-import ProductoOrden from '../../src/components/ProductoOrden'
+import ProductoOrden from '../../src/components/Orden/ProductoOrden'
 import { formatearCantidad } from '../../src/helpers'
 import { mostrarAlerta } from '../../src/handler/Alerta'
 import globalStyles from '../../src/components/styles/globalStyles'
+import { generarCodigo } from '../../src/helpers'
+import { app_host } from '../../src/handler/Api'
 
 const DetalleOrden = ({ navigation }) => {
     const { productosOrden, setProductosOrden, productos, table, ordenEnviada, setOrdenEnviada } = useContext(AppContext);
@@ -12,16 +14,16 @@ const DetalleOrden = ({ navigation }) => {
 
     const ingresarOrden = async () => {
         const calculoTotal = total();
-        console.log(calculoTotal)
 
         const orden = {
+            code: generarCodigo(),
             date: '',
             total: calculoTotal,
             status: 'CONFIRMADO',
             tables_id: table
         }
 
-        const url = 'http://192.168.0.7:8000/api/orders';
+        const url = `${app_host}/api/orders`;
         try {
             await fetch(
                 url,
@@ -45,7 +47,6 @@ const DetalleOrden = ({ navigation }) => {
 
     const respuesta = (response) => {
         const errors = response.errors;
-        console.log(response)
         if (response.status === 200) {
 
             ingresarDetalle(response.order.id);
@@ -73,7 +74,7 @@ const DetalleOrden = ({ navigation }) => {
 
     const ingresoUnitario = async (producto) => {
 
-        const url = 'http://192.168.0.7:8000/api/detailOrders';
+        const url = `${app_host}/api/detailOrders`;
         try {
             await fetch(
                 url,

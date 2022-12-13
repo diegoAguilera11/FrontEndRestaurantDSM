@@ -120,7 +120,8 @@ export function RestaurantProvider({ children }) {
         obtenerMesasAPI();
 
     }, [consultarAPImesas]);
-
+    
+    
     return (
         <AppContext.Provider value={{
             categorias, setCategorias, productos, setProductos, setConsultarProductosAPI,

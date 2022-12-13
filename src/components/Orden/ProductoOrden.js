@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text, Pressable, Image } from 'react-native'
-import { convertImage, formatearCantidad } from '../helpers';
+import { convertImage, formatearCantidad } from '../../helpers';
 
 
 const ProductoOrden = ({ item, eliminarProductoOrden }) => {
@@ -9,10 +9,10 @@ const ProductoOrden = ({ item, eliminarProductoOrden }) => {
         <View style={styles.contenedor}>
             <Image style={styles.imagen} source={{ uri: convertImage(item.infoProduct[0].image) }} />
             <View style={styles.contenedorInfo}>
-                {/* <Text style={styles.texto}>Código: {infoProduct[0].code}</Text> */}
                 <Text style={styles.texto}>{infoProduct[0].name}</Text>
                 <Text style={styles.texto}>Cantidad: <Text style={styles.textoContenido}>{quantity}</Text></Text>
                 <Text style={styles.texto}>Precio: <Text style={styles.textoContenido}>{formatearCantidad(quantity * infoProduct[0].price)}</Text></Text>
+                <Text style={styles.texto}>Stock: <Text style={styles.textoContenido}>{infoProduct[0].stock}</Text></Text>
             </View>
 
             <View style={styles.contenedorButton}>

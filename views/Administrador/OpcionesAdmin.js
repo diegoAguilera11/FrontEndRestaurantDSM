@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, Text, Pressable, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import globalStyles from '../../src/components/styles/globalStyles'
-import Menu from '../Orden/Menu'
+import Menu from './Menu'
 import AppContext from '../../src/components/ContextApp'
 import { mostrarAlerta } from '../../src/handler/Alerta'
+import { app_host } from '../../src/handler/Api'
 
 
 const OpcionesAdmin = ({ navigation }) => {
@@ -54,7 +55,7 @@ const OpcionesAdmin = ({ navigation }) => {
 
     const eliminarProducto = async (id) => {
         let resultadoConsulta;
-        const url = 'http://192.168.0.7:8000/api/products';
+        const url = `${app_host}/api/products`;
 
         try {
             const resultado = await fetch(`${url}/${id}`, {

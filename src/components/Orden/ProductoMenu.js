@@ -1,19 +1,21 @@
 import React from 'react'
 import { View, StyleSheet, Text, Pressable, Image } from 'react-native'
-import { formatearCantidad } from '../helpers';
-import { convertImage } from '../helpers';
+import { formatearCantidad } from '../../helpers';
+import { convertImage } from '../../helpers';
 
 const ProductoMenu = ({ item, productoEditar, productoEliminar, detalleProducto }) => {
-    const { code, name, description, price, category_id, image, id } = item;
+    const { code, name, description, price, stock, category_id, image, id } = item;
 
     return (
         <Pressable onLongPress={() => detalleProducto(id)}>
             <View style={styles.contenedor}>
                 <View style={styles.contenedorFlatList}>
                     <View style={{ flex: 1 }}>
-                        <Text style={styles.texto}>Codigo Producto: {code}</Text>
-                        <Text style={styles.texto}>Nombre Producto: {name}</Text>
-                        <Text style={styles.texto}>Precio Producto: {formatearCantidad(price)}</Text>
+                        <Text style={styles.texto}>Codigo: {code}</Text>
+                        <Text style={styles.texto}>Nombre: {name}</Text>
+                        <Text style={styles.texto}>Precio: {formatearCantidad(price)}</Text>
+                        <Text style={styles.texto}>Stock: {stock}</Text>
+
                     </View>
                     <Image style={styles.imagen} source={{ uri: convertImage(item.image) }} />
                 </View>

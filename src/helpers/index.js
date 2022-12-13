@@ -1,3 +1,4 @@
+import { app_host } from "../handler/Api"
 export const generarCodigo = () => {
     const random = Math.random().toString(36).substring(2, 12)
 
@@ -17,7 +18,7 @@ export const convertImage = (image) => {
     const contains_uri = image.includes('localhost');
 
     if (contains_uri) {
-        const newUri = image.replace("localhost", "192.168.0.7");
+        const newUri = image.replace("localhost", app_host);
         return newUri;
     }
     return image

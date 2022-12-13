@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, Pressable, Text, Image, Alert } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { mostrarAlerta } from '../handler/Alerta'
 import { convertImage } from '../helpers'
 import { formatearCantidad } from '../helpers'
@@ -7,14 +8,16 @@ import AppContext from './ContextApp'
 
 const DetalleProducto = ({ navigation }) => {
     const { productoSeleccionado, setproductoSeleccionado, productosOrden, setProductosOrden, productos } = useContext(AppContext);
-    const { id, code, name, description, price, image, category_id } = productoSeleccionado;
+    const { id, code, name, description, price, stock, image, category_id } = productoSeleccionado;
     const [contador, setContador] = useState(1);
     const [priceOrder, setPriceOrder] = useState(price);
 
 
     const sumar = () => {
-        setContador(contador + 1)
-        setPriceOrder(priceOrder + price)
+        if (contador < stock) {
+            setContador(contador + 1)
+            setPriceOrder(priceOrder + price)
+        }
     }
 
     const restar = () => {
@@ -46,22 +49,22 @@ const DetalleProducto = ({ navigation }) => {
             setProductosOrden(productosActualizados);
             navigation.navigate('NuevaOrden');
             return
-        } else {
+        }
             // Agrega el producto al carrito
             setProductosOrden([...productosOrden, productoNew]);
             mostrarAlerta('Exito', 'El producto fue agregado a la orden');
             navigation.navigate('NuevaOrden');
-        }
     }
 
     return (
         <View style={styles.contenedor}>
 
-            <Image style={styles.imagen} source={{ uri: convertImage(image)}} />
+            <Image style={styles.imagen} source={{ uri: convertImage(image) }} />
 
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.description}>{description}</Text>
             <Text style={styles.price}>{formatearCantidad(price)} c/u</Text>
+            <Text style={styles.stock}>Stock Disponible: {stock}</Text>
 
             <View style={styles.contenedorQuantity}>
                 <View style={styles.contenedorButton}>
@@ -151,10 +154,17 @@ const styles = StyleSheet.create({
         fontFamily: 'Caramel-and-Vanilla',
         marginBottom: 50
     },
+    stock: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: '#000',
+        fontFamily: 'Caramel-and-Vanilla',
+        marginBottom: 50
+    },
     imagen: {
-        width: 250,
-        height: 200,
-        marginVertical: 30,
+        width: 150,
+        height: 150,
+        marginVertical: 20,
         borderRadius: 10
     },
     quantity: {

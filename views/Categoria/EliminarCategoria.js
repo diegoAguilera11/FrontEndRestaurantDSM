@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker'
 import globalStyles from '../../src/components/styles/globalStyles';
 import AppContext from '../../src/components/ContextApp';
 import { mostrarAlerta } from '../../src/handler/Alerta';
+import { app_host } from '../../src/handler/Api';
 
 const EliminarCategoria = ({ navigation }) => {
 
@@ -43,7 +44,7 @@ const EliminarCategoria = ({ navigation }) => {
 
     const eliminarCategoria = async () => {
         let resultadoConsulta;
-        const url = 'http://192.168.0.7:8000/api/categoriess';
+        const url = `${app_host}/api/categories`;
 
         try {
             const resultado = await fetch(`${url}/${category_id}`, {
@@ -61,7 +62,7 @@ const EliminarCategoria = ({ navigation }) => {
 
         // Verificar validacion para cuando se coloca un nombre ya existente en cateogrias
         if (!resultadoConsulta) {
-            mostrarAlerta(false, 'La categoría no ha podido ser eliminada')
+            mostrarAlerta(false, 'La categoría no ha podido ser eliminada debido a que pertenece a un producto activo del catálogo')
             return
         }
 

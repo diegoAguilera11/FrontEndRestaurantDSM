@@ -4,7 +4,7 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { formatearCantidad } from '../helpers';
 import { convertImage } from '../helpers';
 const Producto = ({ item, productoEditar, productoEliminar, categoria }) => {
-    const { code, name, description, price, category_id, id, image } = item;
+    const { code, name, description, price, stock, category_id, id, image } = item;
 
     return (
         <View style={styles.contenedor}>
@@ -14,6 +14,7 @@ const Producto = ({ item, productoEditar, productoEliminar, categoria }) => {
                     <Text style={styles.texto}>Codigo: {code}</Text>
                     <Text style={styles.texto}>Nombre: {name}</Text>
                     <Text style={styles.texto}>Precio: {formatearCantidad(price)}</Text>
+                    <Text style={styles.texto}>Stock: {stock}</Text>
                 </View>
                 <Image style={styles.imagen} source={{ uri: convertImage(item.image) }} />
             </View>

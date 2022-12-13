@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker'
 import globalStyles from '../../src/components/styles/globalStyles';
 import AppContext from '../../src/components/ContextApp';
 import { mostrarAlerta } from '../../src/handler/Alerta';
+import { app_host } from '../../src/handler/Api';
 
 const EditarCategoria = ({ navigation }) => {
 
@@ -35,7 +36,7 @@ const EditarCategoria = ({ navigation }) => {
             return
         }
 
-        const url = `http://192.168.0.7:8000/api/categories/${category_id}`;
+        const url = `${app_host}/api/categories/${category_id}`;
         try {
             await fetch(
                 url,

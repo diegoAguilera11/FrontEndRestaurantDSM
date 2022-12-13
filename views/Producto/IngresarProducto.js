@@ -17,7 +17,7 @@ import { mostrarAlerta } from '../../src/handler/Alerta';
 import { launchImageLibrary } from 'react-native-image-picker'
 import { convertImage } from '../../src/helpers';
 import axios from 'axios';
-import { parse } from '@babel/core';
+import { app_host } from '../../src/handler/Api';
 
 const IngresarProducto = ({ navigation }) => {
 
@@ -26,19 +26,23 @@ const IngresarProducto = ({ navigation }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [stock, setStock] = useState('');
     const [category_id, setCategory] = useState('');
     const [image, setImage] = useState('https://via.placeholder.com/200');
+
+    const [nameProductError, setNameProductError] = useState('');
     const [response, setResponse] = useState('');
 
 
 
     useEffect(() => {
         if (Object.keys(productoObj).length > 0) {
-            const { code, name, description, price, category_id, image } = productoObj;
+            const { code, name, description, price, stock, category_id, image } = productoObj;
             setCode(code);
             setName(name);
             setDescription(description);
             setPrice(`${price}`);
+            setPrice(`${stock}`);
             setCategory(category_id);
             setImage(convertImage(image));
         }
@@ -82,8 +86,9 @@ const IngresarProducto = ({ navigation }) => {
             type: response.assets[0].type,
         });
 
+        const urlApi = `${app_host}/api/upload`;
         try {
-            const { data } = await axios.post('http://192.168.0.7:8000/api/upload', formData, {
+            const { data } = await axios.post(urlApi, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             if (!data.isSuccess) {
@@ -105,13 +110,29 @@ const IngresarProducto = ({ navigation }) => {
         setCategory(categoria)
     }
 
-    const guardarProducto = async () => {
+    const verificarGuardado = async () => {
 
         //Validación
-        if ([name, description, price, category_id].includes('') || image === 'https://via.placeholder.com/200') {
+        if ([name, description, price, stock, category_id].includes('') || image === 'https://via.placeholder.com/200') {
             Alert.alert('Error', 'Todos los campos son obligatorios')
             return
         }
+
+        Alert.alert(
+            `Producto ${name}`,
+            `¿Esta seguro que quiere ingresar este producto al catálogo?`,
+            [
+                { text: 'Cancelar' },
+                {
+                    text: 'Si, Agregar', onPress: () => {
+                        guardarProducto()
+                    }
+                }
+            ]
+        )
+    }
+
+    const guardarProducto = async () => {
 
         let uri;
 
@@ -128,6 +149,7 @@ const IngresarProducto = ({ navigation }) => {
             name,
             description,
             price,
+            stock,
             category_id,
             image: uri
         }
@@ -145,7 +167,7 @@ const IngresarProducto = ({ navigation }) => {
 
     const agregarProducto = async (producto) => {
 
-        const url = 'http://192.168.0.7:8000/api/products';
+        const url = `${app_host}/api/products`;
         try {
             await fetch(
                 url,
@@ -169,7 +191,7 @@ const IngresarProducto = ({ navigation }) => {
     };
 
     const editarProducto = async (producto) => {
-        const url = `http://192.168.0.7:8000/api/products/${productoObj.id}`;
+        const url = `${app_host}/api/products/${productoObj.id}`;
 
         try {
             await fetch(
@@ -195,8 +217,7 @@ const IngresarProducto = ({ navigation }) => {
 
     const respuesta = (response) => {
         if (response.status === 201) {
-            console.log(response.errors)
-            mostrarAlerta(false, 'Producto error');
+            mostrarAlerta(false, 'El producto no pudo ser agregado');
         }
 
         if (response.status === 200) {
@@ -213,6 +234,7 @@ const IngresarProducto = ({ navigation }) => {
             setName('');
             setDescription('');
             setPrice('');
+            setStock('');
             setCategory('');
             setImage('https://via.placeholder.com/200');
         }
@@ -224,6 +246,7 @@ const IngresarProducto = ({ navigation }) => {
             setName('');
             setDescription('');
             setPrice('');
+            setStock('');
             setCategory('');
             setImage('https://via.placeholder.com/200');
             setProductoApp({});
@@ -236,6 +259,7 @@ const IngresarProducto = ({ navigation }) => {
         navigation.navigate('OpcionesAdmin')
 
     }
+
     return (
         <ScrollView style={styles.contenedor}>
 
@@ -244,6 +268,7 @@ const IngresarProducto = ({ navigation }) => {
                 setName('');
                 setDescription('');
                 setPrice('');
+                setStock('');
                 setCategory('');
                 setImage('https://via.placeholder.com/200');
                 setProductoApp({});
@@ -260,12 +285,12 @@ const IngresarProducto = ({ navigation }) => {
                     <Text style={styles.label}>Nombre</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder='Nombre del producto. ej. Fideos con salsa'
+                        placeholder='Nombre del producto. Ej: Fideos con salsa'
                         mess
                         value={name}
                         onChangeText={texto => setName(texto)}
                     />
-                    {/* <Text>Campo requerido</Text> */}
+                    {nameProductError.length > 0 && <Text style={{ color: 'red' }}>{nameCategoryError}</Text>}
                 </View>
 
                 <View style={styles.campo}>
@@ -288,6 +313,17 @@ const IngresarProducto = ({ navigation }) => {
                         keyboardType='numeric'
                         value={price}
                         onChangeText={setPrice}
+                    />
+                </View>
+
+                <View style={styles.campo}>
+                    <Text style={styles.label}>Stock</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Ingresa el stock del producto. Ej: 25'
+                        keyboardType='numeric'
+                        value={stock}
+                        onChangeText={setStock}
                     />
                 </View>
 
@@ -318,7 +354,7 @@ const IngresarProducto = ({ navigation }) => {
 
                 </View>
 
-                <Pressable style={styles.submitBtn} onPress={() => guardarProducto()}>
+                <Pressable style={styles.submitBtn} onPress={() => verificarGuardado()}>
                     <Text style={styles.submitBtnTexto}>{productoObj.id ? 'Editar Producto' : 'Agregar Producto'}</Text>
                 </Pressable>
 

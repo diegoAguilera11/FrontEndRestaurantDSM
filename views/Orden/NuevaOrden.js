@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, StyleSheet, View, FlatList, Pressable } from 'react-native'
+import { Text, StyleSheet, View, FlatList, Pressable, Image } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Button, FAB } from 'react-native-paper'
 import AppContext from '../../src/components/ContextApp';
-import ProductoMenu from '../../src/components/ProductoMenu';
+import ProductoMenu from '../../src/components/Orden/ProductoMenu';
 
 const NuevaOrden = ({ navigation }) => {
-    const { table, categorias, setCategorias, productos, setProductos, productoSeleccionado, setproductoSeleccionado } = useContext(AppContext)
+    const { table, categorias, productos, setproductoSeleccionado, setConsultarProductosAPI } = useContext(AppContext)
     const [category_id, setCategory] = useState('');
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
     const [defaultProducts, setDefaultProducts] = useState(true);
@@ -28,16 +28,35 @@ const NuevaOrden = ({ navigation }) => {
         navigation.goBack()
     }
 
+    function imagen() {
+        return (
+            <Image
+                source={require('../../src/images/carrito-de-supermercado.png')}
+                style={{ width: 35, height: 35, alignSelf: 'center' }}
+            />
+        )
+    }
+
+    function imagenTime() {
+        return (
+            <Image
+                source={require('../../src/images/hora-de-comer.png')}
+                style={{ width: 35, height: 35, alignSelf: 'center' }}
+            />
+        )
+    }
+
     const visitarDetalleOrden = () => {
+        setConsultarProductosAPI(true)
         navigation.navigate('DetalleOrden')
     }
+
     const obtenerCategoria = categoria => {
         setCategory(categoria)
         cargarProductos(categoria);
     }
 
     const cargarProductos = (categoria) => {
-        console.log(categoria)
         if (categoria === '') {
             setCategoriaSeleccionada(productos)
             return
@@ -84,8 +103,10 @@ const NuevaOrden = ({ navigation }) => {
             </View>
 
             <FAB
+                icon={() => imagen()}
                 style={styles.fab}
                 onPress={() => visitarDetalleOrden()}
+
             />
         </View>
     );
@@ -166,6 +187,6 @@ const styles = StyleSheet.create({
         margin: 20,
         right: 0,
         bottom: 20
-    }
+    },
 })
 export default NuevaOrden;
